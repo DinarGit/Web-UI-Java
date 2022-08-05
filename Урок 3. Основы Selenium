@@ -1,0 +1,72 @@
+import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class BugredTest {
+
+    public static void main(String[] args) throws InterruptedException {
+        WebDriverManager.chromedriver().setup();
+
+        WebDriver driver = new ChromeDriver();
+
+        driver.get("http://users.bugred.ru/user/login/index.html");
+        WebElement loginForm = driver.findElement(By.className("name"));
+        loginForm.sendKeys("qwert@ty.ru");
+        driver.findElement(By.className("password")).sendKeys("12345");
+        driver.findElement(By.className("btn btn-danger")).click();
+
+
+        Thread.sleep( 5000);
+
+    }
+}
+
+--------------------------------------------------------------
+import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+
+public class Main {
+    public static void main(String[] args) throws InterruptedException {
+        System.setProperty("webdriver.chrome.driver", "C:\\source\\chromedriver\\chromedriver.exe");
+
+        WebDriver driver = new ChromeDriver();
+        driver.get("https://google.com");
+
+        WebDriverManager.firefoxdriver().setup();
+        WebDriver firefoxDriver = new FirefoxDriver();
+        firefoxDriver.get("https://yandex.ru");
+
+        Thread.sleep( 5000);
+        driver.quit();
+        firefoxDriver.quit();
+
+    }
+}
+----------------------------------------------------------
+import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+
+public class SetupBrowserExamples {
+
+    public static void main(String[] args) throws InterruptedException {
+        WebDriverManager.chromedriver().setup();
+
+        ChromeOptions chromeOptions = new ChromeOptions();
+        chromeOptions.addArguments("--disable-notifications");
+        chromeOptions.addArguments("user-agent=Googlebot/2.1 (+http://www.google.com/bot.html)");
+        chromeOptions.addArguments("--headless");
+
+        WebDriver driver = new ChromeDriver(chromeOptions);
+
+        driver.get("http://google.com");
+
+        Thread.sleep( 5000);
+        driver.quit();
+    }
+}
